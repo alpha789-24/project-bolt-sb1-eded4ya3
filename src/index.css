@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Design System — CSS Variables & Base Styles
+   ========================================================================== */
+
+:root {
+  /* Primary — brand navy (matches tailwind.config.js primary-600: #0b2853) */
+  --color-primary-50:  #f0f5fc;
+  --color-primary-100: #e1ecf8;
+  --color-primary-200: #c4dcf1;
+  --color-primary-300: #9fc1dc;
+  --color-primary-400: #71a2cc;
+  --color-primary-500: #4f85b8;
+  --color-primary-600: #0b2853; /* Brand Accent Blue — matches Tailwind config */
+  --color-primary-700: #172033;
+  --color-primary-800: #0f172a;
+  --color-primary-900: #020617;
+
+  /* Accent — refined gold */
+  --color-gold-50:  #fdfbf3;
+  --color-gold-100: #faf3e0;
+  --color-gold-200: #f5e9c8;
+  --color-gold-300: #ecd99e;
+  --color-gold-400: #d4b86a;
+  --color-gold-500: #c2a050;
+  --color-gold-600: #a88840;
+
+  /* Fonts */
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Increased scroll-padding to account for h-16 sticky navbar */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: #1e293b;
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+
+  /* Prevent iOS input zoom */
+  input, select, textarea {
+    font-size: 16px;
+  }
+
+  /* Focus visible for keyboard users — use the corrected primary colour */
+  :focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+  }
+
+  /* Smooth image rendering */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ==========================================================================
+   Reveal animation
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Hero fade-in animation
+   ========================================================================== */
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-fade-in {
+  animation: hero-fade-in 0.8s ease-out forwards;
+}
+
+.hero-fade-in-delayed {
+  opacity: 0;
+  animation: hero-fade-in 0.8s ease-out 0.2s forwards;
+}
+
+/* ==========================================================================
+   Success check animation
+   ========================================================================== */
+
+@keyframes success-pop {
+  0%   { transform: scale(0);    opacity: 0; }
+  60%  { transform: scale(1.15);             }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+.success-check {
+  animation: success-pop 0.5s ease-out forwards;
+}
+
+/* ==========================================================================
+   Floating contact panel — simple fade in/out
+   ========================================================================== */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fade-in-up;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-out;
+}
+
+.slide-in-from-bottom-2 {
+  /* Combined into fade-in-up above */
+}
+
+/* ==========================================================================
+   Screen reader only
+   ========================================================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-fade-in,
+  .hero-fade-in-delayed {
+    animation: none;
+    opacity: 1;
+  }
+
+  .success-check,
+  .animate-in {
+    animation: none;
+    opacity: 1;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

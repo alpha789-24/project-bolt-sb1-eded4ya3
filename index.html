@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon placeholders — replace with real files -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#1d4ed8" />
+
+    <!-- Primary Meta Tags -->
+    <title>ALPHA-24 — Professional Financial Services in Vadodara, Gujarat</title>
+    <meta
+      name="description"
+      content="ALPHA-24 offers professional financial and market-related services including stock broking, investment planning, mutual funds, algo trading and portfolio services in Vadodara, Gujarat."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="ALPHA-24" />
+    <!-- Placeholder domain: replace with real domain when known -->
+    <link rel="canonical" href="https://alpha-24.example.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ALPHA-24 — Professional Financial Services" />
+    <meta
+      property="og:description"
+      content="Professional financial and market-related services designed around your goals, preferences and long-term plans."
+    />
+    <meta property="og:url" content="https://alpha-24.example.com/" />
+    <meta property="og:image" content="https://alpha-24.example.com/og-image.png" />
+    <meta property="og:site_name" content="ALPHA-24" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ALPHA-24 — Professional Financial Services" />
+    <meta
+      name="twitter:description"
+      content="Professional financial and market-related services designed around your goals."
+    />
+    <meta name="twitter:image" content="https://alpha-24.example.com/og-image.png" />
+
+    <!-- Fonts — preconnect + display swap for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FinancialService",
+        "name": "ALPHA-24",
+        "description": "Professional financial and market-related services designed around your goals, preferences and long-term plans.",
+        "areaServed": "IN",
+        "telephone": "+919619011555",
+        "email": "supportalpha24@gmail.com",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+919619011555",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Hindi", "Gujarati"]
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Amarnath Society, Canal RD, Near Randal Mata Temple, New Sama",
+          "addressLocality": "Vadodara",
+          "addressRegion": "Gujarat",
+          "postalCode": "390024",
+          "addressCountry": "IN"
+        },
+        "url": "https://alpha-24.example.com/"
+      }
+    </script>
+
+    <!--
+      ================================================================
+      Netlify Forms — Static detection form
+      ================================================================
+      Netlify's build bot scans this file and registers the form named
+      "enquiry" with data-netlify="true".
+
+      The React form in EnquiryForm.tsx submits via fetch() POST to "/"
+      with Content-Type: application/x-www-form-urlencoded, including
+      "form-name=enquiry" and matching field names.
+
+      Field names here MUST match the React form field names exactly:
+        fullName, phone, email, service, message, consent, bot-field
+
+      ⚠️  This only works on the deployed Netlify site, NOT on localhost.
+      Email notifications: Netlify Dashboard → Site configuration →
+        Forms → Form notifications → Add notification for "enquiry".
+      ================================================================
+    -->
+    <form
+      name="enquiry"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      hidden
+    >
+      <input type="hidden" name="form-name" value="enquiry" />
+      <input type="text"  name="fullName" />
+      <input type="tel"   name="phone" />
+      <input type="email" name="email" />
+      <select name="service">
+        <option value="Stock Broking">Stock Broking</option>
+        <option value="Investment Planning">Investment Planning</option>
+        <option value="Mutual Funds">Mutual Funds</option>
+        <option value="Algo Trading">Algo Trading</option>
+        <option value="Portfolio / Wealth Services">Portfolio / Wealth Services</option>
+        <option value="Market &amp; Trading Support">Market &amp; Trading Support</option>
+        <option value="Other">Other</option>
+      </select>
+      <textarea name="message"></textarea>
+      <input type="checkbox" name="consent" />
+      <input type="text"     name="bot-field" />
+    </form>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

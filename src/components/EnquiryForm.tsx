@@ -1,11 +1,11 @@
 /**
  * EnquiryForm.tsx
  *
- * Submits to Netlify Forms via AJAX (fetch POST to "/").
+ * Submits to Netlify Forms via AJAX (fetch POST to "/__forms.html").
  *
  * HOW NETLIFY FORMS WORKS:
  * ─────────────────────────────────────────────────────────────────────────
- * 1. Netlify's build bot scans index.html for a hidden <form> with
+ * 1. Netlify's build bot scans public/__forms.html for a hidden <form> with
  *    data-netlify="true" and registers the form by name.
  * 2. This React form does NOT use a traditional POST; instead it sends an
  *    AJAX fetch with Content-Type: application/x-www-form-urlencoded and
@@ -38,7 +38,7 @@ import { siteConfig, getWhatsAppUrl } from '@/config/siteConfig';
 import SectionHeading from './SectionHeading';
 import Reveal from './Reveal';
 
-// ── The Netlify form name must match the hidden form in index.html ──────────
+// ── The Netlify form name must match the form in public/__forms.html ────────
 const NETLIFY_FORM_NAME = 'enquiry';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
@@ -190,10 +190,10 @@ export default function EnquiryForm() {
     try {
       /*
        * Netlify Forms AJAX submission.
-       * Field names here must match the hidden <form> in index.html exactly.
+       * Field names here must match public/__forms.html exactly.
        * Content-Type MUST be application/x-www-form-urlencoded (not JSON).
        */
-      const body = new URLSearchParams({
+      const fields = {
         'form-name':  NETLIFY_FORM_NAME,
         'bot-field':  '',             // honeypot — always empty for real users
         fullName:     form.fullName.trim(),
@@ -201,21 +201,21 @@ export default function EnquiryForm() {
         email:        form.email.trim(),
         service:      form.service,
         message:      form.message.trim(),
-        consent:      form.consent ? 'yes' : 'no',
-      });
+        consent:      'yes',
+      };
 
-      const response = await fetch('/', {
+      const response = await fetch('/__forms.html', {
         method:  'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body:    body.toString(),
+        body:    new URLSearchParams(fields).toString(),
       });
 
-      /*
-       * On localhost, Netlify Forms isn't active so the POST returns 200 for
-       * the normal page. We treat any 2xx as success in dev to allow testing
-       * the UI states. In production Netlify returns 200 on success.
-       */
-      if (!response.ok && window.location.hostname !== 'localhost') {
+      if (!response.ok) {
+        const responseText = await response.text();
+        console.error('Netlify form submission failed', {
+          status: response.status,
+          responseText,
+        });
         throw new Error(`HTTP ${response.status}`);
       }
 
@@ -371,14 +371,7 @@ export default function EnquiryForm() {
 
           {/* ── Form ── */}
           <Reveal delay={100} className="lg:col-span-3">
-            {/*
-             * Netlify Forms attributes on the React form are optional when
-             * submitting via AJAX, but they help Netlify recognise the form.
-             * The critical parts are:
-             *   - <input type="hidden" name="form-name" value="enquiry" />
-             *   - A hidden bot-field honeypot input
-             *   - fetch POST to "/" with Content-Type: application/x-www-form-urlencoded
-             */}
+            {/* Netlify detects this form from public/__forms.html. */}
             <form
               name={NETLIFY_FORM_NAME}
               method="POST"
@@ -393,7 +386,16 @@ export default function EnquiryForm() {
               <input type="hidden" name="form-name" value={NETLIFY_FORM_NAME} />
 
               {/* Honeypot — hidden from real users, traps bots */}
-              <div className="hidden" aria-hidden="true">
+              <div
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  left: '-10000px',
+                  width: '1px',
+                  height: '1px',
+                  overflow: 'hidden',
+                }}
+              >
                 <label>
                   Do not fill this in:{' '}
                   <input name="bot-field" tabIndex={-1} autoComplete="off" />

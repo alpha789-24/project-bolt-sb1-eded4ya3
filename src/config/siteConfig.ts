@@ -47,7 +47,7 @@ export const siteConfig = {
     title: 'ALPHA-24 — Professional Financial Services',
     description:
       'ALPHA-24 offers professional financial and market-related services including stock broking, investment planning, mutual funds, algo trading and portfolio services in Vadodara, Gujarat.',
-    siteUrl: 'https://alpha-24.example.com', // Placeholder domain
+    siteUrl: 'https://aalpha24.netlify.app',
     ogImage: '/og-image.png',
     themeColor: '#1d4ed8', // Updated to match primary-700
   },
